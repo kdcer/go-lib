@@ -25,7 +25,6 @@ func GetPool(handlerName string, poolLimitSize ...uint64) *Pool {
 	} else {
 		pool, err := NewPool(limit)
 		if err != nil {
-			gtoken
 			glog.Error("初始化gpool.Pool失败 poolLimitSize=", limit)
 			panic(err)
 		}
