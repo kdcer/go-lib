@@ -23,15 +23,15 @@ type RemoveReason uint32
 
 const (
 	//=============移除原因=============
-	// mywaystay 2020-2-15 失效事件
+	//  2020-2-15 失效事件
 	Expired RemoveReason = 1
-	// mywaystay 2020-2-15 没空间事件
+	//  2020-2-15 没空间事件
 	NoSpace RemoveReason = 2
-	// mywaystay 2020-2-15 删除事件
+	//  2020-2-15 删除事件
 	Deleted RemoveReason = 3
 )
 
-//mywaystay 2020-2-15 移除监听
+// 2020-2-15 移除监听
 type RemoveListener func(key interface{}, value interface{}, reason RemoveReason)
 
 // Internal cache object.
@@ -54,14 +54,14 @@ type memCache struct {
 	eventList  *glist.List  // Asynchronous event list for internal data synchronization.
 	closed     *gtype.Bool  // Is this cache closed or not.
 
-	listener RemoveListener //mywaystay 2020-2-15 移除监听
+	listener RemoveListener // 2020-2-15 移除监听
 }
 
 // Internal cache item.
 type memCacheItem struct {
 	v interface{}  // Value.
 	e int64        // Expire time in milliseconds.
-	r RemoveReason // mywaystay 2020-2-15 移除原因
+	r RemoveReason //  2020-2-15 移除原因
 }
 
 // Internal event item.
@@ -93,7 +93,7 @@ func newMemCache(lruCap ...int) *memCache {
 	return c
 }
 
-//mywaystay 2020-2-15 添加监听初始化方法
+// 2020-2-15 添加监听初始化方法
 func newMemCacheByListener(listener RemoveListener, lruCap ...int) *memCache {
 	c := &memCache{
 		lruGetList:  glist.New(true),
@@ -272,11 +272,11 @@ func (c *memCache) Remove(key interface{}) (value interface{}) {
 	if ok {
 		value = item.v
 		c.dataMu.Lock()
-		//mywaystay  2020-2-15 新增删除事件 ======>>>>>
+		//  2020-2-15 新增删除事件 ======>>>>>
 		if c.listener != nil {
 			go c.listener(key, item, Deleted)
 		}
-		//mywaystay  2020-2-15 新增删除事件 <<<<<<======
+		//  2020-2-15 新增删除事件 <<<<<<======
 		delete(c.data, key)
 		c.dataMu.Unlock()
 		c.eventList.PushBack(&memCacheEvent{k: key, e: gtime.Millisecond() - 1000})
@@ -429,11 +429,11 @@ func (c *memCache) clearByKey(key interface{}, force ...bool) {
 	c.dataMu.Lock()
 	// Doubly check before really deleting it from cache.
 	if item, ok := c.data[key]; (ok && item.IsExpired()) || (len(force) > 0 && force[0]) {
-		//mywaystay  2020-2-15 新增失效事件 ======>>>>>
+		//  2020-2-15 新增失效事件 ======>>>>>
 		if c.listener != nil {
 			go c.listener(key, c.data[key], Expired)
 		}
-		//mywaystay  2020-2-15 新增失效事件 <<<<<<======
+		//  2020-2-15 新增失效事件 <<<<<<======
 		delete(c.data, key)
 	}
 	c.dataMu.Unlock()
