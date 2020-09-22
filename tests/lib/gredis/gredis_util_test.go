@@ -2,9 +2,9 @@ package gredis
 
 import (
 	"fmt"
-	"go-lib/lib/gredis"
-	"go-lib/lib/gredis/config"
-	"go-lib/lib/gredis/mode/alone"
+	"github.com/kdcer/go-lib/lib/gredis"
+	"github.com/kdcer/go-lib/lib/gredis/config"
+	"github.com/kdcer/go-lib/lib/gredis/mode/alone"
 	"strconv"
 	"testing"
 

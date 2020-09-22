@@ -1,7 +1,7 @@
 package gtoken
 
 import (
-	"go-lib/lib/gredis"
+	"github.com/kdcer/go-lib/lib/gredis"
 	"time"
 
 	"github.com/gogf/gf/encoding/gjson"

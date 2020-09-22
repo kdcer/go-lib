@@ -1,7 +1,7 @@
 package util
 
 import (
-	"go-lib/lib/gpool"
+	"github.com/kdcer/go-lib/lib/gpool"
 
 	"github.com/gogf/gf/os/glog"
 )

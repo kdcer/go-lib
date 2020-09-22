@@ -3,7 +3,7 @@ package goftp
 import (
 	"fmt"
 	"github.com/gogf/gf/os/gtime"
-	"go-lib/lib/util"
+	"github.com/kdcer/go-lib/lib/util"
 	"testing"
 )
 

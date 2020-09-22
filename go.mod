@@ -1,4 +1,4 @@
-module go-lib
+module github.com/kdcer/go-lib
 
 go 1.13
 
