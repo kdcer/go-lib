@@ -2,9 +2,10 @@ package glock
 
 import (
 	"errors"
-	"go-lib/lib/gredis"
 	"sync/atomic"
 	"time"
+
+	"github.com/kdcer/go-lib/lib/gredis"
 
 	"github.com/gogf/gf/util/guuid"
 )

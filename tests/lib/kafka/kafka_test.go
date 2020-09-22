@@ -1,7 +1,7 @@
 package kafka
 
 import (
-	"go-lib/lib/kafka"
+	"github.com/kdcer/go-lib/lib/kafka"
 	"testing"
 	"time"
 )

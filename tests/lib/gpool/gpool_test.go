@@ -2,8 +2,8 @@ package gpool
 
 import (
 	"fmt"
-	"go-lib/lib/gpool"
-	"go-lib/lib/util"
+	"github.com/kdcer/go-lib/lib/gpool"
+	"github.com/kdcer/go-lib/lib/util"
 	"sync"
 	"testing"
 	"time"

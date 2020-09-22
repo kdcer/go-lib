@@ -2,7 +2,7 @@ package singleflight
 
 import (
 	"fmt"
-	"go-lib/lib/singleflight"
+	"github.com/kdcer/go-lib/lib/singleflight"
 	"sync"
 	"testing"
 	"time"
