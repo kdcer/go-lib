@@ -1,19 +1,17 @@
 package kafka
 
 import (
-	"strings"
 	"time"
 
 	"github.com/gogf/gf/os/glog"
 
 	"github.com/Shopify/sarama"
-	"github.com/gogf/gf/frame/g"
 )
 
-var address = strings.Split(g.Cfg().GetString("kafka.host"), ",")
+//var address = strings.Split(g.Cfg().GetString("kafka.host"), ",")
 var Producer sarama.AsyncProducer
 
-func Init() {
+func Init(address []string) {
 	config := sarama.NewConfig()
 	//等待服务器所有副本都保存成功后的响应
 	config.Producer.RequiredAcks = sarama.WaitForAll

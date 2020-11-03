@@ -24,7 +24,7 @@ type memCacheLru struct {
 	rawList *glist.List // History for key adding.
 	closed  *gtype.Bool // Closed or not.
 
-	listener RemoveListener //mywaystay 2020-2-15 移除监听
+	listener RemoveListener // 2020-2-15 移除监听
 }
 
 // newMemCacheLru creates and returns a new LRU object.
@@ -40,7 +40,7 @@ func newMemCacheLru(cache *memCache) *memCacheLru {
 	return lru
 }
 
-//mywaystay 2020-2-15 添加监听初始化方法
+// 2020-2-15 添加监听初始化方法
 func newMemCacheLruByListener(listener RemoveListener, cache *memCache) *memCacheLru {
 	lru := newMemCacheLru(cache)
 	lru.listener = listener
@@ -112,11 +112,11 @@ func (lru *memCacheLru) SyncAndClear() {
 	// Data cleaning up.
 	for i := lru.Size() - lru.cache.cap; i > 0; i-- {
 		if s := lru.Pop(); s != nil {
-			//mywaystay  2020-2-15 新增没空间事件 ======>>>>>
+			//  2020-2-15 新增没空间事件 ======>>>>>
 			if lru.cache.listener != nil {
 				go lru.cache.listener(s, lru.cache.data[s], NoSpace)
 			}
-			//mywaystay  2020-2-15 新增没空间事件 <<<<<<======
+			//  2020-2-15 新增没空间事件 <<<<<<======
 			lru.cache.clearByKey(s, true)
 		}
 	}
