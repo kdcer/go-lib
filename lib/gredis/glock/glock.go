@@ -5,9 +5,8 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/gogf/gf/util/guuid"
 	"github.com/kdcer/go-lib/lib/gredis"
-
-	"github.com/gogf/guuid"
 )
 
 type RdsLock struct {

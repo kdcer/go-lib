@@ -8,8 +8,7 @@ require (
 	github.com/go-gomail/gomail v0.0.0-20160411212932-81ebce5c23df
 	github.com/go-redsync/redsync v1.4.2
 	github.com/goflyfox/gtoken v1.3.9
-	github.com/gogf/gf v1.14.5
-	github.com/gogf/guuid v1.0.0
+	github.com/gogf/gf v1.11.2
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/json-iterator/go v1.1.10
 	github.com/klauspost/cpuid v1.2.2 // indirect
