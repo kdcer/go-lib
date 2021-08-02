@@ -8,6 +8,7 @@ import (
 	"encoding/hex"
 	"hash/crc32"
 	"io"
+	"math"
 	"math/rand"
 
 	"github.com/gogf/gf/util/gconv"
@@ -158,4 +159,23 @@ func StringsTruncate(str, rep string, limit int) (dst string) {
 		dst = str
 	}
 	return
+}
+
+// EarthDistance 根据经纬度获取距离
+//	参数：lat1纬度1 lng1经度1 lat2纬度2 lng2经度2
+//	返回距离 米
+func EarthDistance(lat1, lng1, lat2, lng2 float64) int {
+	//log.Println(lat1, lng1, lat2, lng2)
+	radius := 6378137.00 // 6378137
+	rad := math.Pi / 180.0
+
+	lat1 = lat1 * rad
+	lng1 = lng1 * rad
+	lat2 = lat2 * rad
+	lng2 = lng2 * rad
+
+	theta := lng2 - lng1
+	dist := math.Acos(math.Sin(lat1)*math.Sin(lat2) + math.Cos(lat1)*math.Cos(lat2)*math.Cos(theta))
+
+	return int(dist * radius)
 }
