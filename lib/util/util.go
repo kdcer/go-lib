@@ -6,10 +6,12 @@ import (
 	crand "crypto/rand"
 	"encoding/base64"
 	"encoding/hex"
+	"fmt"
 	"hash/crc32"
 	"io"
 	"math"
 	"math/rand"
+	"time"
 
 	"github.com/gogf/gf/util/gconv"
 )
@@ -178,4 +180,11 @@ func EarthDistance(lat1, lng1, lat2, lng2 float64) int {
 	dist := math.Acos(math.Sin(lat1)*math.Sin(lat2) + math.Cos(lat1)*math.Cos(lat2)*math.Cos(theta))
 
 	return int(dist * radius)
+}
+
+// GetRand 获取短信验证码随机数
+func GetRand() string {
+	rnd := rand.New(rand.NewSource(time.Now().UnixNano()))
+	code := fmt.Sprintf("%06v", rnd.Int31n(1000000))
+	return code
 }
