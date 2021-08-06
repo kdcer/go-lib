@@ -5,6 +5,8 @@ go 1.16
 require (
 	github.com/FZambia/sentinel v1.1.0
 	github.com/Shopify/sarama v1.24.1
+	github.com/aliyun/aliyun-oss-go-sdk v2.1.10+incompatible
+	github.com/baiyubin/aliyun-sts-go-sdk v0.0.0-20180326062324-cfa1a18b161f // indirect
 	github.com/go-gomail/gomail v0.0.0-20160411212932-81ebce5c23df
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-redsync/redsync v1.4.2
@@ -14,6 +16,8 @@ require (
 	github.com/json-iterator/go v1.1.10
 	github.com/klauspost/cpuid v1.2.2 // indirect
 	github.com/onsi/gomega v1.14.0 // indirect
+	github.com/satori/go.uuid v1.2.0 // indirect
+	golang.org/x/time v0.0.0-20210723032227-1f47c861a9ac // indirect
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/dutchcoders/goftp.v1 v1.0.0-20170301105846-ed59a591ce14
 	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df // indirect
