@@ -27,29 +27,29 @@ type OSS struct {
 }
 
 var (
-	syncOnce sync.Once
-	_oss     *OSS
+	syncOnce  sync.Once
+	OssClient *OSS
 )
 
 // New .
 func New(ossConfig *OssConfig) *OSS {
 	syncOnce.Do(func() {
-		_oss = new(OSS)
-		_oss.OssConfig = ossConfig
+		OssClient = new(OSS)
+		OssClient.OssConfig = ossConfig
 		client, err := oss.New(ossConfig.Endpoint, ossConfig.AccessKeyId, ossConfig.AccessKeySecret)
 		if err != nil {
 			glog.Error(err)
 			panic(err)
 		}
-		_oss.client = client
+		OssClient.client = client
 		bucket, err := client.Bucket(ossConfig.BucketName)
 		if err != nil {
 			glog.Error(err)
 			panic(err)
 		}
-		_oss.bucket = bucket
+		OssClient.bucket = bucket
 	})
-	return _oss
+	return OssClient
 }
 
 // Put 上传.
