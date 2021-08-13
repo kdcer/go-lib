@@ -65,6 +65,21 @@ func (oss *OSS) Put(objectKey string, reader io.Reader, fileName string) (uri st
 	return
 }
 
+// PutAsync 异步上传.
+func (oss *OSS) PutAsync(objectKey string, reader io.Reader, fileName string) (uri string, err error) {
+	go func() {
+		err = oss.bucket.PutObject(objectKey, reader)
+		if err != nil {
+			glog.Error(err)
+		}
+	}()
+	//uri = fmt.Sprintf("https://%s/%s/%s", oss.bucket.GetConfig().Endpoint, time.Now().Format("2006-01-02"), objectKey)
+	// 文件名编码返回url
+	objectKey = strings.Replace(objectKey, fileName, url.PathEscape(fileName), 1)
+	uri = fmt.Sprintf("https://%s.%s/%s", oss.BucketName, strings.Replace(oss.Endpoint, "https://", "", 1), objectKey)
+	return
+}
+
 // Delete 删除.
 func (oss *OSS) Delete(objectKey string) (err error) {
 	err = oss.bucket.DeleteObject(objectKey)
