@@ -2,13 +2,14 @@ package gredis
 
 import (
 	"fmt"
-	"github.com/kdcer/go-lib/lib/gredis"
-	"github.com/kdcer/go-lib/lib/gredis/config"
-	"github.com/kdcer/go-lib/lib/gredis/mode/alone"
 	"strconv"
 	"testing"
 
-	"github.com/gogf/gf/util/guuid"
+	"github.com/gogf/guuid"
+	"github.com/kdcer/go-lib/lib/gredis"
+	"github.com/kdcer/go-lib/lib/gredis/config"
+	"github.com/kdcer/go-lib/lib/gredis/mode/alone"
+
 	jsoniter "github.com/json-iterator/go"
 
 	"github.com/gogf/gf/util/gconv"

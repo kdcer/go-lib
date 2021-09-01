@@ -5,7 +5,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/gogf/gf/util/guuid"
+	"github.com/gogf/guuid"
+
 	"github.com/kdcer/go-lib/lib/gredis"
 )
 

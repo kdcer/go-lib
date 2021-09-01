@@ -11,12 +11,15 @@ require (
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-redsync/redsync v1.4.2
 	github.com/goflyfox/gtoken v1.3.9
-	github.com/gogf/gf v1.11.2
+	github.com/gogf/gf v1.16.5
+	github.com/gogf/guuid v1.0.0
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/json-iterator/go v1.1.10
 	github.com/klauspost/cpuid v1.2.2 // indirect
 	github.com/onsi/gomega v1.14.0 // indirect
 	github.com/satori/go.uuid v1.2.0 // indirect
+	github.com/silenceper/wechat/v2 v2.0.8
+	golang.org/x/crypto v0.0.0-20210220033148-5ea612d1eb83
 	golang.org/x/time v0.0.0-20210723032227-1f47c861a9ac // indirect
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/dutchcoders/goftp.v1 v1.0.0-20170301105846-ed59a591ce14
