@@ -77,15 +77,6 @@ func Test_Example(t *testing.T) {
 
 func Test_Pay(t *testing.T) {
 	wechatInit()
-	wechat.InitPayService(&wechat.RedPacketConfig{
-		WeixinPayKey:            g.Config().GetString("wechat.sendredpack.weixinPayKey"),
-		WeixinMchID:             g.Config().GetString("wechat.sendredpack.weixinMchID"),
-		WeixinAppID:             g.Config().GetString("wechat.appId"),
-		WeixinClientCertPemPath: g.Config().GetString("wechat.sendredpack.weixinClientCertPemPath"),
-		WeixinClientKeyPemPath:  g.Config().GetString("wechat.sendredpack.weixinClientKeyPemPath"),
-		WeixinRootCaPath:        g.Config().GetString("wechat.sendredpack.weixinRootCaPath"),
-		ClientIP:                g.Config().GetString("wechat.sendredpack.clientIP"),
-	})
 	redPacketRequest := &wechat.RedPacketRequest{
 		ActName:     "红包活动",
 		ReOpenid:    "user.OpenId",
@@ -117,15 +108,27 @@ func wechatInit() {
 		MaxIdle:     10,
 		IdleTimeout: 300,
 	})
+
 	wechat.InitOfficialAccount(&offConfig.Config{
 		AppID:          g.Config().GetString("wechat.appId"),
 		AppSecret:      g.Config().GetString("wechat.appSecret"),
 		Token:          g.Config().GetString("wechat.token"),
 		EncodingAESKey: g.Config().GetString("wechat.encodingAESKey"),
 	})
+
 	wechat.InitMiniProgram(&miniConfig.Config{
 		AppID:     g.Config().GetString("wechat.appId"),
 		AppSecret: g.Config().GetString("wechat.appSecret"),
+	})
+
+	wechat.InitPayService(&wechat.RedPacketConfig{
+		WeixinPayKey:            g.Config().GetString("wechat.sendredpack.weixinPayKey"),
+		WeixinMchID:             g.Config().GetString("wechat.sendredpack.weixinMchID"),
+		WeixinAppID:             g.Config().GetString("wechat.appId"),
+		WeixinClientCertPemPath: g.Config().GetString("wechat.sendredpack.weixinClientCertPemPath"),
+		WeixinClientKeyPemPath:  g.Config().GetString("wechat.sendredpack.weixinClientKeyPemPath"),
+		WeixinRootCaPath:        g.Config().GetString("wechat.sendredpack.weixinRootCaPath"),
+		ClientIP:                g.Config().GetString("wechat.sendredpack.clientIP"),
 	})
 }
 
