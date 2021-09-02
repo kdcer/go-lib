@@ -18,7 +18,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gogf/guuid"
+	"github.com/silenceper/wechat/v2/util"
 
 	"github.com/gogf/gf/os/glog"
 	"golang.org/x/crypto/pkcs12"
@@ -63,7 +63,7 @@ type RedPacketRequest struct {
 	Sign        string `xml:"sign"`         //必填，签名
 	SceneID     string `xml:"scene_id"`     //非必填，红包使用场景 红包金额大于200或者小于1元时，请求参数scene_id必传，参数说明见下文。  https://pay.weixin.qq.com/wiki/doc/api/tools/cash_coupon.php?chapter=13_4&index=3
 	//RiskInfo 	string		`xml:"risk_info"`    //非必填，用户操作的时间戳
-	//ConsumeMchId string		`xml:"consume_mch_id"` //非必填，资金授权商户号
+	//ConsumeMchId string	`xml:"consume_mch_id"` //非必填，资金授权商户号
 }
 
 //Response 接口返回
@@ -89,7 +89,7 @@ func NewPayService(cfg *RedPacketConfig) *PayService {
 
 // SendRedPack 发微信红包
 func (srv *PayService) SendRedPack(redPacketEntity *RedPacketRequest) (rsp *Response, err error) {
-	nonceStr := guuid.New().String() //随机字符串
+	nonceStr := util.RandomStr(32) //随机字符串
 
 	//订单号,随机生成
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
