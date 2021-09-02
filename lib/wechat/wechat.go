@@ -15,10 +15,6 @@ import (
 	workConfig "github.com/silenceper/wechat/v2/work/config"
 )
 
-type Wechat struct {
-	*wechat.Wechat
-}
-
 var wc *wechat.Wechat
 var OfficialAccount *officialaccount.OfficialAccount
 var MiniProgram *miniprogram.MiniProgram
