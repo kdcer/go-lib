@@ -1,8 +1,9 @@
 package gtoken
 
 import (
-	"github.com/kdcer/go-lib/lib/gredis"
 	"time"
+
+	"github.com/kdcer/go-lib/lib/gredis"
 
 	"github.com/gogf/gf/encoding/gjson"
 	"github.com/gogf/gf/frame/g"
@@ -40,7 +41,7 @@ func (m *GfToken) getCache(cacheKey string) Resp {
 	var userCache g.Map
 	switch m.CacheMode {
 	case CacheModeCache:
-		userCacheValue := gcache.Get(cacheKey)
+		userCacheValue, _ := gcache.Get(cacheKey)
 		if userCacheValue == nil {
 			return Unauthorized("login timeout or not login", "")
 		}

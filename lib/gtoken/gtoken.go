@@ -412,7 +412,7 @@ func (m *GfToken) EncryptToken(userKey string) Resp {
 		return Fail("encrypt userKey empty")
 	}
 
-	uuid, err := gmd5.Encrypt(grand.Str(10))
+	uuid, err := gmd5.Encrypt(grand.Str("abcdefg4112568", 10))
 	if err != nil {
 		glog.Error("[GToken]uuid error", err)
 		return Error("uuid error")
