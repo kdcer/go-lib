@@ -81,10 +81,16 @@ type Response struct {
 	SendListid  string `xml:"send_listid,omitempty"`
 }
 
-func NewPayService(cfg *RedPacketConfig) *PayService {
-	return &PayService{
+var payService *PayService
+
+func InitPayService(cfg *RedPacketConfig) {
+	payService = &PayService{
 		RedPacketConfig: cfg,
 	}
+}
+
+func GetPayService() *PayService {
+	return payService
 }
 
 // SendRedPack 发微信红包

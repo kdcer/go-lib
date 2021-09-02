@@ -77,7 +77,7 @@ func Test_Example(t *testing.T) {
 
 func Test_Pay(t *testing.T) {
 	wechatInit()
-	var payService = wechat.NewPayService(&wechat.RedPacketConfig{
+	wechat.InitPayService(&wechat.RedPacketConfig{
 		WeixinPayKey:            g.Config().GetString("wechat.sendredpack.weixinPayKey"),
 		WeixinMchID:             g.Config().GetString("wechat.sendredpack.weixinMchID"),
 		WeixinAppID:             g.Config().GetString("wechat.appId"),
@@ -95,7 +95,8 @@ func Test_Pay(t *testing.T) {
 		Wishing:     "感谢您的参与！",
 		SceneID:     "PRODUCT_2",
 	}
-	rsp, err := payService.SendRedPack(redPacketRequest)
+
+	rsp, err := wechat.GetPayService().SendRedPack(redPacketRequest)
 	if err != nil {
 		fmt.Println(rsp, err)
 		return
