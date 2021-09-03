@@ -39,3 +39,18 @@ func Test_LockAwaitOnce(t *testing.T) {
 		})
 	}()
 }
+
+func Test_1(t *testing.T) {
+	lock, err := rlock.New("lockKey", 10)
+	if err != nil {
+		panic(err)
+	}
+	lock.Lock()
+	lock.Lock()
+	lock.SetTimeout(20)
+	lock.Unlock()
+	lock.Lock()
+	lock.LockAwaitOnce(func() {
+		fmt.Println(111)
+	})
+}
