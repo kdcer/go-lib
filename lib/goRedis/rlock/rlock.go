@@ -1,4 +1,4 @@
-package glock
+package rlock
 
 import (
 	"errors"
