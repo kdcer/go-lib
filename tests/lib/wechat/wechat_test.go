@@ -158,6 +158,12 @@ func (s *WechatService) Serve(r *ghttp.Request) (err error) {
 		//回复消息：演示回复用户发送的消息
 		text := message.NewText(msg.Content + "666")
 		return &message.Reply{MsgType: message.MsgTypeText, MsgData: text}
+
+		// 如果需要回复success或者空字符串,需要使用下面的方法：(默认的message.NewText会包裹xml,微信需要返回的是纯字符串) https://github.com/silenceper/wechat/issues/309
+		// 直接使用ResponseWriter写入"success"
+		r.Response.WriteExit("success")
+		// 返回nil表明不回复消息
+		return nil
 	})
 
 	//处理消息接收以及回复

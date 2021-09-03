@@ -19,8 +19,10 @@ require (
 	github.com/klauspost/cpuid v1.2.2 // indirect
 	github.com/onsi/gomega v1.14.0 // indirect
 	github.com/satori/go.uuid v1.2.0 // indirect
-	github.com/silenceper/wechat/v2 v2.0.8
-	golang.org/x/crypto v0.0.0-20210220033148-5ea612d1eb83
+	github.com/silenceper/wechat/v2 v2.0.9-rc.1
+	github.com/spf13/cast v1.4.1 // indirect
+	golang.org/x/crypto v0.0.0-20210817164053-32db794688a5
+	golang.org/x/sys v0.0.0-20210903071746-97244b99971b // indirect
 	golang.org/x/time v0.0.0-20210723032227-1f47c861a9ac // indirect
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/dutchcoders/goftp.v1 v1.0.0-20170301105846-ed59a591ce14

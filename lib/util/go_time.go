@@ -2,6 +2,7 @@ package util
 
 import (
 	"fmt"
+
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/os/gtime"
 )
@@ -9,7 +10,7 @@ import (
 type SECOND_COUNT int64
 
 var (
-	// 秒数的值
+	// SECOND_SEC 秒数的值
 	SECOND_SEC SECOND_COUNT = 1
 	MINUTE_SEC              = SECOND_SEC * 60
 	HOUR_SEC                = MINUTE_SEC * 60
@@ -20,7 +21,7 @@ func GetNow() string {
 	return gtime.Datetime()
 }
 
-//获取当天最晚时间
+// GetTodayLatestTime 获取当天最晚时间
 func GetTodayLatestTime() *gtime.Time {
 	gtime.Now().Format("Y-m-d 23:59:59")
 	timeStr := gtime.Now().Format("Y-m-d 23:59:59")
@@ -28,14 +29,14 @@ func GetTodayLatestTime() *gtime.Time {
 	return tonightTime
 }
 
-//判断是否是同一天
+// IsSameDay 判断是否是同一天
 func IsSameDay(time1 *gtime.Time, time2 *gtime.Time) bool {
 	timeStr1 := time1.Format("Y-m-d")
 	timeStr2 := time2.Format("Y-m-d")
 	return timeStr1 == timeStr2
 }
 
-// 获取对过去时间的描述
+// GetPastTimeDescribe 获取对过去时间的描述
 // 		时间范围	描述
 //		1分钟内		刚刚
 //		1小时内		58分钟前
