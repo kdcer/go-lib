@@ -22,7 +22,7 @@ type SignParams struct {
 	IgnoreFilterUrl []string // 签名拦截忽略路径, 相对完整路径(不支持*)
 	IgnoreParams    []string // 忽略不参与签名的公共参数
 	Whitelist       []string // 白名单 多个逗号隔开
-	MasterKey       string   // 万能密钥 直接跳过验证
+	MasterKey       string   // 万能密钥 不为空才有效 直接跳过验证
 }
 
 type appPlatform = string // app平台
@@ -65,8 +65,8 @@ func APISign(r *ghttp.Request, signParams *SignParams) (err error) {
 	}
 	unixTime := r.Header.Get("unixTime")
 	sign := r.Header.Get("sign")
-	// 万能签名直接跳过
-	if sign == signParams.MasterKey {
+	// 万能密钥 不为空才有效 直接跳过验证
+	if len(signParams.MasterKey) > 0 && sign == signParams.MasterKey {
 		return nil
 	}
 	appInfo := r.Header.Get("appInfo")
