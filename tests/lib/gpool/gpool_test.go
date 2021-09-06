@@ -2,11 +2,11 @@ package gpool
 
 import (
 	"fmt"
-	"github.com/kdcer/go-lib/lib/gpool"
-	"github.com/kdcer/go-lib/lib/util"
 	"sync"
 	"testing"
 	"time"
+
+	"github.com/kdcer/go-lib/lib/gpool"
 )
 
 func Test_gpool_01(t *testing.T) {
@@ -30,7 +30,7 @@ func Test_gpool_01(t *testing.T) {
 
 func Test_gpool_02(t *testing.T) {
 	for i := 0; i < 20; i++ {
-		util.AddTask(&gpool.Task{
+		gpool.AddTask(&gpool.Task{
 			Handler: func(v ...interface{}) {
 				fmt.Println(v)
 			},
@@ -52,7 +52,7 @@ func Test_gpool_03(t *testing.T) {
 	wg := &sync.WaitGroup{}
 	for i := 0; i < 20; i++ {
 		wg.Add(1)
-		util.AddTaskByFuc(func(v ...interface{}) {
+		gpool.AddTaskByFunc(func(v ...interface{}) {
 			testPool := v[0].(*TestPool)
 			testPool.index = v[1].(int)
 			fmt.Println(testPool)
@@ -60,7 +60,7 @@ func Test_gpool_03(t *testing.T) {
 		}, testPools[i], i)
 	}
 
-	wg.Done()
+	wg.Wait()
 
 	for i := 0; i < 20; i++ {
 		fmt.Println(testPools[i])

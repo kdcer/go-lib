@@ -37,17 +37,17 @@ func GetDefaultPool(poolLimitSize ...uint64) *Pool {
 	return GetPool(defaultPoolHandlerName, poolLimitSize...)
 }
 
-// 添加后台任务
+// AddTask 添加后台任务
 func AddTask(task *Task) {
 	GetDefaultPool().Put(task)
 }
 
-//根据函数名添加后台任务
+// AddTaskByHandlerName 根据函数名添加后台任务
 func AddTaskByHandlerName(handlerName string, task *Task) {
 	GetPool(handlerName).Put(task)
 }
 
-//添加后台任务
+// AddTaskByFunc 添加后台任务
 func AddTaskByFunc(handler func(args ...interface{}), args ...interface{}) {
 	GetDefaultPool().Put(&Task{
 		Handler: handler,
@@ -55,7 +55,7 @@ func AddTaskByFunc(handler func(args ...interface{}), args ...interface{}) {
 	})
 }
 
-//根据函数名添加后台任务
+// AddFuncByHandlerName 根据函数名添加后台任务
 func AddFuncByHandlerName(handlerName string, handler func(args ...interface{}), args ...interface{}) {
 	GetPool(handlerName).Put(&Task{
 		Handler: handler,
@@ -63,7 +63,7 @@ func AddFuncByHandlerName(handlerName string, handler func(args ...interface{}),
 	})
 }
 
-// 关闭协程池
+// ClosePool 关闭协程池
 func ClosePool(handlerName ...string) {
 	var _handlerName string
 	if len(handlerName) == 0 {
