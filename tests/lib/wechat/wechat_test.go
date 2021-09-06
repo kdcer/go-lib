@@ -124,7 +124,7 @@ func wechatInit() {
 	wechat.InitPayService(&wechat.RedPacketConfig{
 		WeixinPayKey:            g.Config().GetString("wechat.sendredpack.weixinPayKey"),
 		WeixinMchID:             g.Config().GetString("wechat.sendredpack.weixinMchID"),
-		WeixinAppID:             g.Config().GetString("wechat.appId"),
+		WeixinAppID:             g.Config().GetString("wechat.sendredpack.appId"),
 		WeixinClientCertPemPath: g.Config().GetString("wechat.sendredpack.weixinClientCertPemPath"),
 		WeixinClientKeyPemPath:  g.Config().GetString("wechat.sendredpack.weixinClientKeyPemPath"),
 		WeixinRootCaPath:        g.Config().GetString("wechat.sendredpack.weixinRootCaPath"),
