@@ -41,39 +41,42 @@ func Test_Example(t *testing.T) {
 	t.Log(code, err)
 
 	/*
-	  Controller调用方式
-	  type WechatController struct {
-	  	*BaseController
-	  }
-	  func (c *WechatController) GetAccessToken(r *ghttp.Request) {
-	  	res, err := wechatService.GetAccessToken(r)
-	  	if err != nil {
-	  		c.Fail(r, err.Error())
-	  	}
-	  	c.Ok(r, res)
-	  }
+		  Controller调用方式
+		  type WechatController struct {
+		  	*BaseController
+		  }
+		  func (c *WechatController) GetAccessToken(r *ghttp.Request) {
+		  	res, err := wechatService.GetAccessToken(r)
+		  	if err != nil {
+		  		c.Fail(r, err.Error())
+		  	}
+		  	c.Ok(r, res)
+		  }
 
-	  func (c *WechatController) Serve(r *ghttp.Request) {
-	  	// 直接将r交给wechat库处理
-	  	wechatService.Serve(r)
-	  }
+		  func (c *WechatController) Serve(r *ghttp.Request) {
+		  	// 直接将r交给wechat库处理
+		  	wechatService.Serve(r)
+		  }
 
-	  func (c *WechatController) Manager(r *ghttp.Request) {
-	  	err := wechatService.Manager(r)
-	  	if err != nil {
-	  		c.Fail(r, err.Error())
-	  	}
-	  	c.Ok(r, nil)
-	  }
+		  func (c *WechatController) Manager(r *ghttp.Request) {
+		  	err := wechatService.Manager(r)
+		  	if err != nil {
+		  		c.Fail(r, err.Error())
+		  	}
+		  	c.Ok(r, nil)
+		  }
 
-	  // Auth 授权登录 获取code返回给客户端url
-	  func (c *WechatController) Auth(r *ghttp.Request) {
-	  	code, err := wechatService.Auth(r)
-	  	if err != nil {
-	  		c.Error(r, err)
-	  	}
-	  	c.Ok(r, code)
-	  }
+		  // Auth 授权登录 获取code返回给客户端url
+		  func (c *WechatController) Auth(r *ghttp.Request) {
+		  	code, err := wechatService.Auth(r)
+		  	if err != nil {
+		  		c.Error(r, err)
+		  	}
+		  	c.Ok(r, code)
+		  }
+
+		router：使用ALL，需要GET和POST两种请求
+		userRouter.ALL("/serve", user.Serve)
 	*/
 }
 
