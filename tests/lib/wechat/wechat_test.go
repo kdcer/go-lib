@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"testing"
 
+	openConfig "github.com/silenceper/wechat/v2/openplatform/config"
+
 	"github.com/silenceper/wechat/v2/officialaccount/material"
 
 	"github.com/gogf/gf/os/glog"
@@ -119,6 +121,13 @@ func wechatInit() {
 	wechat.InitMiniProgram(&miniConfig.Config{
 		AppID:     g.Config().GetString("wechat.appId"),
 		AppSecret: g.Config().GetString("wechat.appSecret"),
+	})
+
+	wechat.InitOpenPlatform(&openConfig.Config{
+		AppID:          g.Config().GetString("wechat.appId"),
+		AppSecret:      g.Config().GetString("wechat.appSecret"),
+		Token:          g.Config().GetString("wechat.token"),
+		EncodingAESKey: g.Config().GetString("wechat.encodingAESKey"),
 	})
 
 	wechat.InitPayService(&wechat.RedPacketConfig{

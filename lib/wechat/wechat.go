@@ -21,12 +21,13 @@ var MiniProgram *miniprogram.MiniProgram
 var Pay *pay.Pay
 var OpenPlatform *openplatform.OpenPlatform
 var Work *work.Work
+var redisCache *cache.Redis
 
 // InitWechat 获取wechat实例
 // 在这里已经设置了全局cache，则在具体获取公众号/小程序等操作实例之后无需再设置，设置即覆盖
 func InitWechat(opts *cache.RedisOpts) {
 	wc = wechat.NewWechat()
-	redisCache := cache.NewRedis(opts)
+	redisCache = cache.NewRedis(opts)
 	wc.SetCache(redisCache)
 }
 
@@ -47,6 +48,9 @@ func InitPay(cfg *payConfig.Config) {
 
 // InitOpenPlatform 获取微信开放平台的实例
 func InitOpenPlatform(cfg *openConfig.Config) {
+	if cfg.Cache == nil {
+		cfg.Cache = redisCache
+	}
 	OpenPlatform = wc.GetOpenPlatform(cfg)
 }
 
