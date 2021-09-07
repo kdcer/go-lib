@@ -161,7 +161,7 @@ func (s *WechatService) Serve(r *ghttp.Request) (err error) {
 	//关闭接口验证，则validate结果则一直返回true
 	//server.SkipValidate(true)
 
-	//设置接收消息的处理方法
+	//设置接收消息的处理方法 也会接收到菜单反馈和关注取消关注等操作，判断msg.Content为空直接返回nil代表不处理。
 	server.SetMessageHandler(func(msg *message.MixMessage) *message.Reply {
 		//TODO
 		//回复消息：演示回复用户发送的消息
