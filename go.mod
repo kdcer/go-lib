@@ -7,13 +7,13 @@ require (
 	github.com/Shopify/sarama v1.24.1
 	github.com/aliyun/aliyun-oss-go-sdk v2.1.10+incompatible
 	github.com/baiyubin/aliyun-sts-go-sdk v0.0.0-20180326062324-cfa1a18b161f // indirect
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-gomail/gomail v0.0.0-20160411212932-81ebce5c23df
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-redsync/redsync v1.4.2
 	github.com/goflyfox/gtoken v1.3.9
 	github.com/gogf/gf v1.16.5
 	github.com/gogf/guuid v1.0.0
+	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/json-iterator/go v1.1.10
 	github.com/klauspost/cpuid v1.2.2 // indirect

@@ -7,7 +7,7 @@ import (
 
 	"github.com/gogf/gf/frame/g"
 
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt"
 )
 
 type JWT struct {
