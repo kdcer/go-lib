@@ -3,11 +3,12 @@ package goftp
 import (
 	"errors"
 	"fmt"
-	"github.com/silenceper/wechat/v2/pay/transfer"
 	"math/rand"
 	"strconv"
 	"testing"
 	"time"
+
+	"github.com/silenceper/wechat/v2/pay/transfer"
 
 	openConfig "github.com/silenceper/wechat/v2/openplatform/config"
 
