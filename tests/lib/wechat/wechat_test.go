@@ -3,7 +3,11 @@ package goftp
 import (
 	"errors"
 	"fmt"
+	"github.com/silenceper/wechat/v2/pay/transfer"
+	"math/rand"
+	"strconv"
 	"testing"
+	"time"
 
 	openConfig "github.com/silenceper/wechat/v2/openplatform/config"
 
@@ -22,6 +26,7 @@ import (
 	"github.com/silenceper/wechat/v2/cache"
 	miniConfig "github.com/silenceper/wechat/v2/miniprogram/config"
 	offConfig "github.com/silenceper/wechat/v2/officialaccount/config"
+	payConfig "github.com/silenceper/wechat/v2/pay/config"
 )
 
 func Test_Example(t *testing.T) {
@@ -100,6 +105,7 @@ func Test_Pay(t *testing.T) {
 
 	if rsp.ReturnCode != "SUCCESS" || rsp.ResultCode != "SUCCESS" {
 		t.Log(err)
+		return
 	}
 }
 
@@ -124,6 +130,13 @@ func wechatInit() {
 	wechat.InitMiniProgram(&miniConfig.Config{
 		AppID:     g.Config().GetString("wechat.appId"),
 		AppSecret: g.Config().GetString("wechat.appSecret"),
+	})
+
+	wechat.InitPay(&payConfig.Config{
+		AppID:     "",
+		MchID:     "",
+		Key:       "",
+		NotifyURL: "",
 	})
 
 	wechat.InitOpenPlatform(&openConfig.Config{
@@ -258,6 +271,28 @@ func (s *WechatService) Example(r *ghttp.Request) (err error) {
 	// 上传永久素材，filename传文件地址
 	wechat.OfficialAccount.GetMaterial().AddMaterial(material.MediaTypeImage, "./image/1.png")
 	// -----------------------------------素材库-----------------------------------------
+	// -----------------------------------支付-----------------------------------------
+	// 企业直接转账
+	_r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	var formatDate = "20060102"
+	mchBillno := "1229445702" + time.Now().Format(formatDate) + strconv.FormatInt(time.Now().Unix(), 10)[4:] + strconv.Itoa(_r.Intn(8999)+1000)
+	rsp, err := wechat.Pay.GetTransfer().WalletTransfer(&transfer.Params{
+		PartnerTradeNo: mchBillno,
+		OpenID:         "openId",
+		CheckName:      false,
+		Amount:         100,
+		Desc:           "百联奥莱\"秋游·巴士行\"红包福利",
+		RootCa:         "config/ca/apiclient_cert.p12",
+	})
+	fmt.Println(rsp)
+	if err != nil {
+		fmt.Println(err)
+		return errors.New("内部错误")
+	}
+	if rsp.ResultCode == "FAIL" {
+		return errors.New("内部错误")
+	}
+	// -----------------------------------支付-----------------------------------------
 	return err
 }
 
