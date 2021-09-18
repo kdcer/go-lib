@@ -8,6 +8,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/silenceper/wechat/v2/officialaccount/menu"
+
 	"github.com/silenceper/wechat/v2/pay/transfer"
 
 	openConfig "github.com/silenceper/wechat/v2/openplatform/config"
@@ -294,6 +296,39 @@ func (s *WechatService) Example(r *ghttp.Request) (err error) {
 		return errors.New("内部错误")
 	}
 	// -----------------------------------支付-----------------------------------------
+
+	// -----------------------------------菜单-----------------------------------------
+	// 获取菜单
+	resMenu, err := wechat.OfficialAccount.GetMenu().GetMenu()
+	if err != nil {
+		return err
+	}
+	glog.Info(resMenu)
+	// 获取自定义菜单配置接口
+	resMenu2, err := wechat.OfficialAccount.GetMenu().GetCurrentSelfMenuInfo()
+	if err != nil {
+		return err
+	}
+	glog.Info(resMenu2)
+
+	// 方法1：获取菜单进行修改后更新
+	bts := make([]*menu.Button, 0)
+
+	for _, button := range resMenu.Menu.Button {
+		for _, subButton := range button.SubButtons {
+			if subButton.Name == "杭州奥莱" {
+				//...
+			}
+		}
+		bts = append(bts, &button)
+	}
+	wechat.OfficialAccount.GetMenu().SetMenu(bts)
+	// 方法2：直接通过json更新，不能有encode后的编码，否则报错
+	err = wechat.OfficialAccount.GetMenu().SetMenuByJSON(`{"button": [{"type": "miniprogram","name": "奥莱+","url": "http://www.bailiangroup.cn/","appid": "wxe97b0cd5680d13e0","pagepath": "pages/homepage/homepage"},{"name": "百联云店","sub_button": [{"type": "miniprogram","name": "青浦百联奥莱","url": "http://cloudwebapp.bl.com/page/cloudStoreDownload/即市新版本v1.2.5?cm_mmc=H5-tw-alsyb-1-1030-001304-0-0-0&invite=undefined","appid": "wx5cc935253e8cb92f","pagepath": "pages/YGHomePage/YGHomePage?shortcut=nFvZrZfghg1IsZRX"}]},{"name": "寻新之旅","sub_button": [{"type": "view","name": "杭州百联奥莱","url": "https://mp.weixin.qq.com/s/Iu8-W6-uYl9hceXFtAoiAw"},{"type": "view","name": "青岛百联奥莱","url": "https://mp.weixin.qq.com/s/jW2lbGnoy9ONkNXggX4OYw"}]}]}`)
+	if err != nil {
+		glog.Error(err)
+	}
+	// -----------------------------------菜单-----------------------------------------
 	return err
 }
 
