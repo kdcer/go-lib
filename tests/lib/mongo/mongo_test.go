@@ -1,4 +1,4 @@
-package gredis
+package mongo
 
 import (
 	"context"
