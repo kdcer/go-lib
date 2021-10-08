@@ -1,4 +1,4 @@
-package mongo
+package mongoext
 
 import (
 	"context"
@@ -10,9 +10,10 @@ import (
 )
 
 var syncOnce sync.Once
-var client *mongo.Client
+var Client *mongo.Client
+var Db *mongo.Database
 
-func InitMongo(uri string, maxPoolSize uint64) {
+func InitMongo(uri, db string, maxPoolSize uint64) {
 	syncOnce.Do(
 		func() {
 			ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -21,10 +22,11 @@ func InitMongo(uri string, maxPoolSize uint64) {
 			if err != nil {
 				panic(err)
 			}
-			client = _client
+			Client = _client
+			Db = _client.Database(db)
 		})
 }
 
-func GetCollect(dbName, tableName string) *mongo.Collection {
-	return client.Database(dbName).Collection(tableName)
+func GetCollect(tableName string) *mongo.Collection {
+	return Db.Collection(tableName)
 }
