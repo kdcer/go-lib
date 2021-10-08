@@ -30,3 +30,18 @@ func InitMongo(uri, db string, maxPoolSize uint64) {
 func GetCollect(tableName string) *mongo.Collection {
 	return Db.Collection(tableName)
 }
+
+// GetFindOptions .
+func GetFindOptions(page, pageSize int64, sort interface{}) *options.FindOptions {
+	findOptions := options.Find()
+	if sort != nil {
+		findOptions.SetSort(sort)
+	}
+	if pageSize == 0 {
+		pageSize = 20
+	}
+	findOptions.Limit = &pageSize
+	skip := (page - 1) * pageSize
+	findOptions.Skip = &skip
+	return findOptions
+}
