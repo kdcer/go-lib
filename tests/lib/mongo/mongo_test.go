@@ -16,7 +16,7 @@ import (
 	"github.com/kdcer/go-lib/lib/mongoext"
 )
 
-func mongo_redis(t *testing.T) {
+func Test_Mongo(t *testing.T) {
 	mongoext.InitMongo(g.Config().GetString("mongo.uri"), g.Config().GetString("mongo.db"), g.Config().GetUint64("mongo.maxPoolSize"))
 	InitMongoExt()
 	res, err := MongoExtend.Banners.InsertOne(context.Background(), &Banners{
