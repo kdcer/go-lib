@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"testing"
 
+	"go.etcd.io/etcd/clientv3"
+
 	"github.com/gogf/gf/os/glog"
 
 	"github.com/kdcer/go-lib/lib/etcdctl"
@@ -23,8 +25,14 @@ func Test_Lock(t *testing.T) {
 		glog.Error(err)
 	}
 
-	_, err = etcd.Get(context.Background(), "go/test/a")
+	_, err = etcd.Get(context.Background(), "go/test/a", clientv3.WithPrefix())
 	if err != nil {
 		glog.Error(err)
 	}
+
+	resp, err := etcd.Get(context.Background(), "", clientv3.WithPrefix())
+	if err != nil {
+		glog.Error(err)
+	}
+	fmt.Println(resp)
 }
