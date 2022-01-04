@@ -13,7 +13,7 @@ import (
 )
 
 type EtcdCtl struct {
-	etcdClient *clientv3.Client
+	*clientv3.Client
 }
 
 // EtcdCtlResult 多返回值数据体定义
@@ -35,7 +35,7 @@ func New(endpoints []string) *EtcdCtl {
 		panic(err)
 	}
 	return &EtcdCtl{
-		etcdClient: etcdClient,
+		Client: etcdClient,
 	}
 }
 
@@ -46,7 +46,7 @@ func New(endpoints []string) *EtcdCtl {
 func (e *EtcdCtl) Lock(lockKey string, f func() interface{}) (data interface{}) {
 	lockKey = "etcd-lock/" + lockKey
 	// create two separate sessions for lock competition
-	s1, err := concurrency.NewSession(e.etcdClient)
+	s1, err := concurrency.NewSession(e.Client)
 	if err != nil {
 		glog.Fatal(err)
 	}
