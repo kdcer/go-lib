@@ -3,7 +3,6 @@ package etcdctl
 import (
 	"context"
 	"fmt"
-	"time"
 
 	"github.com/gogf/gf/os/glog"
 
@@ -22,11 +21,7 @@ type EtcdCtlResult struct {
 	Err  error
 }
 
-func New(endpoints []string) *EtcdCtl {
-	config := clientv3.Config{
-		Endpoints:   endpoints,
-		DialTimeout: 5 * time.Second,
-	}
+func New(config clientv3.Config) *EtcdCtl {
 	var err error
 	// 建立一个客户端
 	etcdClient, err := clientv3.New(config)

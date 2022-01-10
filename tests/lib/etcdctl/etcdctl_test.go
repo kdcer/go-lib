@@ -16,7 +16,12 @@ import (
 )
 
 func Test_Lock(t *testing.T) {
-	etcd := etcdctl.New([]string{"127.0.0.1:2379"})
+	etcd := etcdctl.New(clientv3.Config{
+		Endpoints:   []string{"127.0.0.1:2379"},
+		DialTimeout: 5 * time.Second,
+		Username:    "root",
+		Password:    "123456",
+	})
 	res := etcd.Lock("lockKey", func() interface{} {
 		fmt.Println(1)
 		return 1
@@ -26,7 +31,12 @@ func Test_Lock(t *testing.T) {
 }
 
 func Test_Kv(t *testing.T) {
-	etcd := etcdctl.New([]string{"127.0.0.1:2379"})
+	etcd := etcdctl.New(clientv3.Config{
+		Endpoints:   []string{"127.0.0.1:2379"},
+		DialTimeout: 5 * time.Second,
+		Username:    "root",
+		Password:    "123456",
+	})
 	_, err := etcd.Put(context.Background(), "go/test/a", "1")
 	if err != nil {
 		glog.Error(err)
@@ -80,7 +90,12 @@ func Test_Lease(t *testing.T) {
 		kv             clientv3.KV
 		getResp        *clientv3.GetResponse
 	)
-	etcd := etcdctl.New([]string{"127.0.0.1:2379"})
+	etcd := etcdctl.New(clientv3.Config{
+		Endpoints:   []string{"127.0.0.1:2379"},
+		DialTimeout: 5 * time.Second,
+		Username:    "root",
+		Password:    "123456",
+	})
 	// 申请一个lease(租约)
 	lease = clientv3.NewLease(etcd.Client)
 
@@ -134,7 +149,12 @@ func Test_Watch(t *testing.T) {
 		event              *clientv3.Event
 	)
 
-	etcd := etcdctl.New([]string{"127.0.0.1:2379"})
+	etcd := etcdctl.New(clientv3.Config{
+		Endpoints:   []string{"127.0.0.1:2379"},
+		DialTimeout: 5 * time.Second,
+		Username:    "root",
+		Password:    "123456",
+	})
 
 	// 用于读写etcd的键值对
 	kv = clientv3.NewKV(etcd.Client)
@@ -184,7 +204,12 @@ func Test_Op(t *testing.T) {
 		opResp clientv3.OpResponse
 	)
 
-	etcd := etcdctl.New([]string{"127.0.0.1:2379"})
+	etcd := etcdctl.New(clientv3.Config{
+		Endpoints:   []string{"127.0.0.1:2379"},
+		DialTimeout: 5 * time.Second,
+		Username:    "root",
+		Password:    "123456",
+	})
 
 	// 用于读写etcd的键值对
 	kv = clientv3.NewKV(etcd.Client)
