@@ -24,8 +24,8 @@ func Test_douyin_login(t *testing.T) {
 		AppId:     g.Config().GetString("douyin.appId"),
 		AppSecret: g.Config().GetString("douyin.appSecret"),
 	})
-	var tk douying.ResCodeSession
 
+	var tk douying.ResCodeSession
 	params := url.Values{}
 	params.Add("code", "code")
 	resp, _ := auth.Code2Session(douying.MicroappApp, params)
