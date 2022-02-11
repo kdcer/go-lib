@@ -33,6 +33,8 @@ require (
 	github.com/eapache/go-resiliency v1.1.0 // indirect
 	github.com/eapache/go-xerial-snappy v0.0.0-20180814174437-776d5712da21 // indirect
 	github.com/eapache/queue v1.1.0 // indirect
+	github.com/faabiosr/cachego v0.16.1 // indirect
+	github.com/fastwego/microapp v1.0.0-beta.1 // indirect
 	github.com/fatih/color v1.12.0 // indirect
 	github.com/fatih/structs v1.1.0 // indirect
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
