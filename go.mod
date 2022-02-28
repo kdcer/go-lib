@@ -6,6 +6,7 @@ require (
 	github.com/FZambia/sentinel v1.1.0
 	github.com/Shopify/sarama v1.24.1
 	github.com/aliyun/aliyun-oss-go-sdk v2.1.10+incompatible
+	github.com/fastwego/microapp v1.0.0-beta.1
 	github.com/go-gomail/gomail v0.0.0-20160411212932-81ebce5c23df
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-redsync/redsync v1.4.2
@@ -34,7 +35,6 @@ require (
 	github.com/eapache/go-xerial-snappy v0.0.0-20180814174437-776d5712da21 // indirect
 	github.com/eapache/queue v1.1.0 // indirect
 	github.com/faabiosr/cachego v0.16.1 // indirect
-	github.com/fastwego/microapp v1.0.0-beta.1 // indirect
 	github.com/fatih/color v1.12.0 // indirect
 	github.com/fatih/structs v1.1.0 // indirect
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
