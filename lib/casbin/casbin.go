@@ -1,3 +1,7 @@
+// 2022年3月2日13:50:36
+// casbin封装
+// 使用init初始化，调用方法使用Enforcer
+
 package casbin
 
 import (
@@ -11,11 +15,11 @@ import (
 )
 
 var (
-	Enforcer *casbin.Enforcer
+	enforcer *casbin.Enforcer
 	syncOnce sync.Once
 )
 
-func New(driverName, dataSourceName, confPath string) {
+func Init(driverName, dataSourceName, confPath string) {
 	syncOnce.Do(func() {
 		// 要使用自己定义的数据库rbac_db,最后的true很重要.默认为false,使用缺省的数据库名casbin,不存在则创建
 		a, err := xormadapter.NewAdapter(driverName, dataSourceName, true)
@@ -28,12 +32,13 @@ func New(driverName, dataSourceName, confPath string) {
 			glog.Error("初始化casbin错误: %v", err)
 			panic(err)
 		}
-		Enforcer = e
+		enforcer = e
 	})
+
 }
 
-// New2 goframe配置文件专用
-func New2(confPath string) {
+// Init2 goframe配置文件专用
+func Init2(confPath string) {
 	link := g.Config().GetString("database.link")
 	if len(link) == 0 {
 		panic("casbin数据库连接为空")
@@ -44,5 +49,15 @@ func New2(confPath string) {
 	}
 	driverName := links[0]
 	dataSourceName := strings.Replace(link, driverName+":", "", 1)
-	New(driverName, dataSourceName, confPath)
+	Init(driverName, dataSourceName, confPath)
+}
+
+func Enforcer() *casbin.Enforcer {
+	// 每次获取权限时要调用`LoadPolicy()`否则不会重新加载数据库数据
+	err := enforcer.LoadPolicy()
+	if err != nil {
+		glog.Error(err)
+		panic(err)
+	}
+	return enforcer
 }

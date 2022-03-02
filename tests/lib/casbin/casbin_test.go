@@ -8,10 +8,11 @@ import (
 )
 
 func Test_Casbin(t *testing.T) {
-	casbin.New("mysql", "root:123456@tcp(127.0.0.1:3306)/goblog?charset=utf8", "./rbac_models.conf")
+	casbin.Init("mysql", "root:123456@tcp(127.0.0.1:3306)/goblog?charset=utf8", "./rbac_models.conf")
 
-	casbin.Enforcer.ClearPolicy()
-	casbin.Enforcer.AddPolicy("nothing", "domain1", "/index", "get")
-	list := casbin.Enforcer.GetPolicy()
+	casbin.Enforcer().ClearPolicy()
+	casbin.Enforcer().SavePolicy()
+	casbin.Enforcer().AddPolicy("nothing", "domain1", "/index", "get")
+	list := casbin.Enforcer().GetPolicy()
 	fmt.Println(list)
 }
