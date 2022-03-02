@@ -6,6 +6,8 @@ require (
 	github.com/FZambia/sentinel v1.1.0
 	github.com/Shopify/sarama v1.24.1
 	github.com/aliyun/aliyun-oss-go-sdk v2.1.10+incompatible
+	github.com/casbin/casbin/v2 v2.41.1
+	github.com/casbin/xorm-adapter/v2 v2.5.1
 	github.com/fastwego/microapp v1.0.0-beta.1
 	github.com/go-gomail/gomail v0.0.0-20160411212932-81ebce5c23df
 	github.com/go-redis/redis v6.15.9+incompatible
@@ -25,6 +27,7 @@ require (
 
 require (
 	github.com/BurntSushi/toml v0.3.1 // indirect
+	github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible // indirect
 	github.com/baiyubin/aliyun-sts-go-sdk v0.0.0-20180326062324-cfa1a18b161f // indirect
 	github.com/bradfitz/gomemcache v0.0.0-20190913173617-a41fca850d0b // indirect
 	github.com/clbanning/mxj v1.8.5-0.20200714211355-ff02cfb8ea28 // indirect
@@ -51,6 +54,7 @@ require (
 	github.com/hashicorp/go-uuid v1.0.1 // indirect
 	github.com/jcmturner/gofork v0.0.0-20190328161633-dc7c13fece03 // indirect
 	github.com/klauspost/compress v1.13.6 // indirect
+	github.com/lib/pq v1.8.0 // indirect
 	github.com/mattn/go-colorable v0.1.8 // indirect
 	github.com/mattn/go-isatty v0.0.12 // indirect
 	github.com/mattn/go-runewidth v0.0.10 // indirect
@@ -66,6 +70,7 @@ require (
 	github.com/satori/go.uuid v1.2.0 // indirect
 	github.com/sirupsen/logrus v1.8.1 // indirect
 	github.com/spf13/cast v1.4.1 // indirect
+	github.com/syndtr/goleveldb v1.0.0 // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect
 	github.com/xdg-go/scram v1.0.2 // indirect
 	github.com/xdg-go/stringprep v1.0.2 // indirect
@@ -91,4 +96,6 @@ require (
 	gopkg.in/jcmturner/rpc.v1 v1.1.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c // indirect
+	xorm.io/builder v0.3.7 // indirect
+	xorm.io/xorm v1.0.3 // indirect
 )
