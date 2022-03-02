@@ -39,8 +39,10 @@ func New2(confPath string) {
 		panic("casbin数据库连接为空")
 	}
 	links := strings.Split(link, ":")
-	if len(links) != 3 {
+	if len(links) == 0 {
 		panic("casbin数据库连接错误")
 	}
-	New(links[0], links[1]+links[2], confPath)
+	driverName := links[0]
+	dataSourceName := strings.Replace(link, driverName+":", "", 1)
+	New(driverName, dataSourceName, confPath)
 }
