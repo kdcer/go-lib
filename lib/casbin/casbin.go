@@ -15,7 +15,7 @@ import (
 )
 
 var (
-	enforcer *casbin.Enforcer
+	enforcer *casbin.SyncedEnforcer
 	syncOnce sync.Once
 )
 
@@ -27,7 +27,7 @@ func Init(driverName, dataSourceName, confPath string) {
 			glog.Error("casbin连接数据库错误: %v", err)
 			panic(err)
 		}
-		e, err := casbin.NewEnforcer(confPath, a)
+		e, err := casbin.NewSyncedEnforcer(confPath, a)
 		if err != nil {
 			glog.Error("初始化casbin错误: %v", err)
 			panic(err)
@@ -52,7 +52,7 @@ func Init2(confPath string) {
 	Init(driverName, dataSourceName, confPath)
 }
 
-func Enforcer() *casbin.Enforcer {
+func Enforcer() *casbin.SyncedEnforcer {
 	// 每次获取权限时要调用`LoadPolicy()`否则不会重新加载数据库数据
 	err := enforcer.LoadPolicy()
 	if err != nil {
