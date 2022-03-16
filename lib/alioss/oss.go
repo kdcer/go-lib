@@ -22,7 +22,7 @@ type OssConfig struct {
 // OSS .
 type OSS struct {
 	client *oss.Client
-	bucket *oss.Bucket
+	Bucket *oss.Bucket
 	*OssConfig
 }
 
@@ -47,14 +47,14 @@ func New(ossConfig *OssConfig) *OSS {
 			glog.Error(err)
 			panic(err)
 		}
-		OssClient.bucket = bucket
+		OssClient.Bucket = bucket
 	})
 	return OssClient
 }
 
 // Put 上传.
 func (oss *OSS) Put(objectKey string, reader io.Reader, fileName string) (uri string, err error) {
-	err = oss.bucket.PutObject(objectKey, reader)
+	err = oss.Bucket.PutObject(objectKey, reader)
 	if err != nil {
 		glog.Error(err)
 	}
@@ -68,7 +68,7 @@ func (oss *OSS) Put(objectKey string, reader io.Reader, fileName string) (uri st
 // PutAsync 异步上传.
 func (oss *OSS) PutAsync(objectKey string, reader io.Reader, fileName string) (uri string, err error) {
 	go func() {
-		err = oss.bucket.PutObject(objectKey, reader)
+		err = oss.Bucket.PutObject(objectKey, reader)
 		if err != nil {
 			glog.Error(err)
 		}
@@ -82,7 +82,7 @@ func (oss *OSS) PutAsync(objectKey string, reader io.Reader, fileName string) (u
 
 // Delete 删除.
 func (oss *OSS) Delete(objectKey string) (err error) {
-	err = oss.bucket.DeleteObject(objectKey)
+	err = oss.Bucket.DeleteObject(objectKey)
 	if err != nil {
 		glog.Error(err)
 	}
@@ -95,12 +95,12 @@ func (oss *OSS) ReName(srcObjectKey, destObjectKey string) (err error) {
 	urlPrefix := fmt.Sprintf("https://%s.%s/", oss.BucketName, strings.Replace(oss.Endpoint, "https://", "", 1))
 	srcObjectKey = strings.Replace(srcObjectKey, urlPrefix, "", 1)
 	destObjectKey = strings.Replace(destObjectKey, urlPrefix, "", 1)
-	_, err = oss.bucket.CopyObject(srcObjectKey, destObjectKey)
+	_, err = oss.Bucket.CopyObject(srcObjectKey, destObjectKey)
 	if err != nil {
 		glog.Error(err)
 		return
 	}
-	err = oss.bucket.DeleteObject(srcObjectKey)
+	err = oss.Bucket.DeleteObject(srcObjectKey)
 	if err != nil {
 		glog.Error(err)
 	}
