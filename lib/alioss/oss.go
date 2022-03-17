@@ -53,8 +53,8 @@ func New(ossConfig *OssConfig) *OSS {
 }
 
 // Put 上传.
-func (oss *OSS) Put(objectKey string, reader io.Reader, fileName string) (uri string, err error) {
-	err = oss.Bucket.PutObject(objectKey, reader)
+func (oss *OSS) Put(objectKey string, reader io.Reader, fileName string, options ...oss.Option) (uri string, err error) {
+	err = oss.Bucket.PutObject(objectKey, reader, options...)
 	if err != nil {
 		glog.Error(err)
 	}
