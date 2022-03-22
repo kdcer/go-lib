@@ -33,6 +33,7 @@ type Info struct {
 type CustomClaims struct {
 	*Info
 	jwt.StandardClaims
+	Extend interface{} // 扩展字段
 }
 
 func NewJWT() *JWT {
