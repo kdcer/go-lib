@@ -28,12 +28,12 @@ type Info struct {
 	OpenID     string
 	UnionID    string
 	SessionKey string
+	Extend     interface{} // 扩展字段
 }
 
 type CustomClaims struct {
 	*Info
 	jwt.StandardClaims
-	Extend interface{} // 扩展字段
 }
 
 func NewJWT() *JWT {
