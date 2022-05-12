@@ -6,7 +6,7 @@ require (
 	github.com/FZambia/sentinel v1.1.0
 	github.com/Shopify/sarama v1.24.1
 	github.com/aliyun/aliyun-oss-go-sdk v2.1.10+incompatible
-	github.com/casbin/casbin/v2 v2.41.1
+	github.com/casbin/casbin/v2 v2.46.0
 	github.com/casbin/xorm-adapter/v2 v2.5.1
 	github.com/fastwego/microapp v1.0.0-beta.1
 	github.com/go-gomail/gomail v0.0.0-20160411212932-81ebce5c23df
