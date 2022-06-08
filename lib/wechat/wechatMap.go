@@ -41,7 +41,7 @@ type Info struct {
 	redisCache      *cache.Redis
 }
 
-type OrderWechatInfos struct {
+type WechatInfos struct {
 	Id             int64  `json:"id"             ` //
 	Name           string `json:"name"           ` // 公众号名
 	AppId          string `json:"appId"          ` //
@@ -52,7 +52,7 @@ type OrderWechatInfos struct {
 }
 
 func NewInfo(appId string, f func(appId string) interface{}) (info *Info, err error) {
-	wechatInfo := f(appId).(OrderWechatInfos)
+	wechatInfo := f(appId).(*WechatInfos)
 	info = &Info{}
 	info.InitWechat(&cache.RedisOpts{
 		Host:        g.Config().GetString("redis.addr"),
