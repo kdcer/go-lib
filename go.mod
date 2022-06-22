@@ -9,6 +9,7 @@ require (
 	github.com/casbin/casbin/v2 v2.46.0
 	github.com/casbin/xorm-adapter/v2 v2.5.1
 	github.com/fastwego/microapp v1.0.0-beta.1
+	github.com/fastwego/microapp v1.0.0-beta.1
 	github.com/go-gomail/gomail v0.0.0-20160411212932-81ebce5c23df
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-redsync/redsync v1.4.2
