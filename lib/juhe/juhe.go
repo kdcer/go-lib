@@ -38,7 +38,8 @@ func SW(city string) *Common {
 func LHL(date string) *Common {
 	c := &Common{}
 	key := "c2845e9107a255ba9a0ed95fb48cbd0d"
-	res, _ := g.Client().Get(fmt.Sprintf(Laohuangli+"d?date=%s&key=%s", url.QueryEscape(date), key))
+	url := fmt.Sprintf(Laohuangli+"?date=%s&key=%s", url.QueryEscape(date), key)
+	res, _ := g.Client().Get(url)
 	data := res.ReadAll()
 	json.Unmarshal(data, &c)
 	return c
@@ -48,7 +49,8 @@ func LHL(date string) *Common {
 func So() *Common {
 	c := &Common{}
 	key := "e5796441e442b3b83e9ed2044c2ac6c0"
-	res, _ := g.Client().Get(fmt.Sprintf(Soup+"?key=", key))
+	url := fmt.Sprintf(Soup+"?key=%s", key)
+	res, _ := g.Client().Get(url)
 	data := res.ReadAll()
 	json.Unmarshal(data, &c)
 	return c
