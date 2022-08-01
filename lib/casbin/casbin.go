@@ -44,10 +44,10 @@ func Init(driverName, dataSourceName, key string) {
 		// 配置前缀，针对多个配置文件时需要指定不同的casbin表
 		tablePrefix := ""
 		if key != "default" {
-			tablePrefix = key
+			tablePrefix = key + "_"
 		}
 
-		a, err := xormadapter.NewAdapterWithTableName(driverName, dataSourceName, "casbin", tablePrefix, true)
+		a, err := xormadapter.NewAdapterWithTableName(driverName, dataSourceName, tablePrefix+"casbin_rule", "", true)
 		if err != nil {
 			glog.Error("casbin连接数据库错误: %v", err)
 			panic(err)
