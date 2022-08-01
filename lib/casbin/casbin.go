@@ -35,11 +35,24 @@ func Init(driverName, dataSourceName, key string) {
 	defer gmlock.Unlock(key)
 	if _, ok := enforcerMap[key]; !ok {
 		// 要使用自己定义的数据库rbac_db,最后的true很重要.默认为false,使用缺省的数据库名casbin,不存在则创建
-		a, err := xormadapter.NewAdapter(driverName, dataSourceName, true)
+		//a, err := xormadapter.NewAdapter(driverName, dataSourceName, true)
+		//if err != nil {
+		//	glog.Error("casbin连接数据库错误: %v", err)
+		//	panic(err)
+		//}
+
+		// 配置前缀，针对多个配置文件时需要指定不同的casbin表
+		tablePrefix := ""
+		if key != "default" {
+			tablePrefix = key
+		}
+
+		a, err := xormadapter.NewAdapterWithTableName(driverName, dataSourceName, "casbin", tablePrefix, true)
 		if err != nil {
 			glog.Error("casbin连接数据库错误: %v", err)
 			panic(err)
 		}
+
 		e, err := casbin.NewSyncedEnforcer(enforcerConfigMap[key], a)
 		if err != nil {
 			glog.Error("初始化casbin错误: %v", err)
