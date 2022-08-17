@@ -106,3 +106,17 @@ func (oss *OSS) ReName(srcObjectKey, destObjectKey string) (err error) {
 	}
 	return
 }
+
+// Copy 复制.
+func (oss *OSS) Copy(srcObjectKey, destObjectKey string) (err error) {
+	// 移除url前缀获取objectName
+	urlPrefix := fmt.Sprintf("https://%s.%s/", oss.BucketName, strings.Replace(oss.Endpoint, "https://", "", 1))
+	srcObjectKey = strings.Replace(srcObjectKey, urlPrefix, "", 1)
+	destObjectKey = strings.Replace(destObjectKey, urlPrefix, "", 1)
+	_, err = oss.Bucket.CopyObject(srcObjectKey, destObjectKey)
+	if err != nil {
+		glog.Error(err)
+		return
+	}
+	return
+}
