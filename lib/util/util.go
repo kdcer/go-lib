@@ -16,14 +16,14 @@ import (
 	"github.com/gogf/gf/util/gconv"
 )
 
-//生成32位md5字串
+// 生成32位md5字串
 func Md5(s string) string {
 	h := md5.New()
 	h.Write([]byte(s))
 	return hex.EncodeToString(h.Sum(nil))
 }
 
-//生成uuid字串  使用此方法获取随机Guid
+// 生成uuid字串  使用此方法获取随机Guid
 func UUID() string {
 	b := make([]byte, 48)
 	if _, err := io.ReadFull(crand.Reader, b); err != nil {
@@ -32,7 +32,7 @@ func UUID() string {
 	return Md5(base64.URLEncoding.EncodeToString(b))
 }
 
-//根据可变string拼接字符串
+// 根据可变string拼接字符串
 func NewBufferString(s ...string) string {
 	l := len(s)
 	if l == 0 {
@@ -153,6 +153,44 @@ func RemoveRepByMap(slc []string) []string {
 	return result
 }
 
+type Addable interface {
+	int | int8 | int16 | int32 | int64 | uint | uint8 | uint16 | uint32 | uint64 | float32 | float64 | string
+}
+
+// RemoveRepByLoopT 通过两重循环过滤重复元素  时间换空间
+func RemoveRepByLoopT[T Addable](slc []T) []T {
+	result := make([]T, 0) // 存放结果
+	for i := range slc {
+		flag := true
+		for j := range result {
+			if slc[i] == result[j] {
+				flag = false // 存在重复元素，标识为false
+				break
+			}
+		}
+		if flag { // 标识为false，不添加进结果
+			result = append(result, slc[i])
+		}
+	}
+	return result
+}
+
+// RemoveRepByMapT 通过map主键唯一的特性过滤重复元素 空间换时间
+func RemoveRepByMapT[T Addable](slc []T) []T {
+	slcLen := len(slc)
+	result := make([]T, 0, slcLen)
+	tempMap := make(map[T]struct{}, slcLen) // 存放不重复主键
+	var l = 0
+	for _, e := range slc {
+		l = len(tempMap)
+		tempMap[e] = struct{}{}
+		if len(tempMap) != l { // 加入map后，map长度变化，则元素不重复
+			result = append(result, e)
+		}
+	}
+	return result
+}
+
 // 字符截取指定长度(str原字符串，rep替换字符串,limit长度限制)
 func StringsTruncate(str, rep string, limit int) (dst string) {
 	if len([]rune(str)) > limit {
@@ -164,6 +202,7 @@ func StringsTruncate(str, rep string, limit int) (dst string) {
 }
 
 // EarthDistance 根据经纬度获取距离
+//
 //	参数：lat1纬度1 lng1经度1 lat2纬度2 lng2经度2
 //	返回距离 米
 func EarthDistance(lat1, lng1, lat2, lng2 float64) int {
