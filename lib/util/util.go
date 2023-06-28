@@ -119,46 +119,12 @@ func GetRandIds(count, limit int) []int {
 	return offsets
 }
 
-// 通过两重循环过滤重复元素  时间换空间
-func RemoveRepByLoop(slc []string) []string {
-	result := []string{} // 存放结果
-	for i := range slc {
-		flag := true
-		for j := range result {
-			if slc[i] == result[j] {
-				flag = false // 存在重复元素，标识为false
-				break
-			}
-		}
-		if flag { // 标识为false，不添加进结果
-			result = append(result, slc[i])
-		}
-	}
-	return result
-}
-
-// 通过map主键唯一的特性过滤重复元素 空间换时间
-func RemoveRepByMap(slc []string) []string {
-	slcLen := len(slc)
-	result := make([]string, 0, slcLen)
-	tempMap := make(map[string]struct{}, slcLen) // 存放不重复主键
-	var l = 0
-	for _, e := range slc {
-		l = len(tempMap)
-		tempMap[e] = struct{}{}
-		if len(tempMap) != l { // 加入map后，map长度变化，则元素不重复
-			result = append(result, e)
-		}
-	}
-	return result
-}
-
 type Addable interface {
 	int | int8 | int16 | int32 | int64 | uint | uint8 | uint16 | uint32 | uint64 | float32 | float64 | string
 }
 
-// RemoveRepByLoopT 通过两重循环过滤重复元素  时间换空间
-func RemoveRepByLoopT[T Addable](slc []T) []T {
+// RemoveRepByLoop 通过两重循环过滤重复元素  时间换空间
+func RemoveRepByLoop[T Addable](slc []T) []T {
 	result := make([]T, 0) // 存放结果
 	for i := range slc {
 		flag := true
@@ -175,8 +141,8 @@ func RemoveRepByLoopT[T Addable](slc []T) []T {
 	return result
 }
 
-// RemoveRepByMapT 通过map主键唯一的特性过滤重复元素 空间换时间
-func RemoveRepByMapT[T Addable](slc []T) []T {
+// RemoveRepByMap 通过map主键唯一的特性过滤重复元素 空间换时间
+func RemoveRepByMap[T Addable](slc []T) []T {
 	slcLen := len(slc)
 	result := make([]T, 0, slcLen)
 	tempMap := make(map[T]struct{}, slcLen) // 存放不重复主键
