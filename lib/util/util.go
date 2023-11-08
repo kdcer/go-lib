@@ -11,6 +11,7 @@ import (
 	"io"
 	"math"
 	"math/rand"
+	"sort"
 	"time"
 
 	"github.com/gogf/gf/util/gconv"
@@ -192,4 +193,64 @@ func GetRand() string {
 	rnd := rand.New(rand.NewSource(time.Now().UnixNano()))
 	code := fmt.Sprintf("%06v", rnd.Int31n(1000000))
 	return code
+}
+
+// GetIntersection 获取多个字符串数组的交集
+func GetIntersection(arrays ...[]string) []string {
+	// 创建一个 map 用于存储每个字符串出现的次数
+	counts := make(map[string]int)
+	// 遍历每个数组，统计字符串出现的次数
+	for _, array := range arrays {
+		for _, str := range array {
+			counts[str]++
+		}
+	}
+	// 创建一个结果数组
+	var intersection []string
+	// 检查每个字符串是否在每个数组中都出现过，如果是，则加入结果数组
+	for str, count := range counts {
+		if count == len(arrays) {
+			intersection = append(intersection, str)
+		}
+	}
+	// 对结果数组进行排序
+	sort.Strings(intersection)
+	return intersection
+}
+
+// Arrcmp 查找两个数组的异同
+func Arrcmp(src []int64, dest []int64) ([]int64, []int64) {
+	msrc := make(map[int64]byte) //按源数组建索引
+	mall := make(map[int64]byte) //源+目所有元素建索引
+	var set []int64              //交集
+	//1.源数组建立map
+	for _, v := range src {
+		msrc[v] = 0
+		mall[v] = 0
+	}
+	//2.目数组中，存不进去，即重复元素，所有存不进去的集合就是并集
+	for _, v := range dest {
+		l := len(mall)
+		mall[v] = 1
+		if l != len(mall) { //长度变化，即可以存
+			l = len(mall)
+		} else { //存不了，进并集
+			set = append(set, v)
+		}
+	}
+	//3.遍历交集，在并集中找，找到就从并集中删，删完后就是补集（即并-交=所有变化的元素）
+	for _, v := range set {
+		delete(mall, v)
+	}
+	//4.此时，mall是补集，所有元素去源中找，找到就是删除的，找不到的必定能在目数组中找到，即新加的
+	var added, deleted []int64
+	for v, _ := range mall {
+		_, exist := msrc[v]
+		if exist {
+			deleted = append(deleted, v)
+		} else {
+			added = append(added, v)
+		}
+	}
+	return added, deleted
 }
